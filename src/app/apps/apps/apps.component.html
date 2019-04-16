@@ -1,0 +1,40 @@
+<div class="container">
+  <app-panel>
+    <span panel-head>{{pageTitle}}
+    </span>
+    <span panel-body> <input type="text" placeholder="flter products" class="form-control" [(ngModel)]="filterProducts">
+      <div class="alert alert-warning" *ngIf="filterProducts">
+        <p>{{filterProducts}}</p>
+      </div>
+
+      <table class="table" *ngIf="products && products.length">
+        <!--ng-if removes the entire elemnet fron the dom -->
+        <tr>
+          <td></td>
+          <td>
+            <button class="btn btn-danger" (click)="buttonHide()">{{showhideImg?"Hide Image":"Show Image"}}</button>
+            <!--Event handlers in paranthesis()-->
+          </td>
+          <td>Product Name</td>
+          <td>Release Date</td>
+          <td>Price </td>
+          <td>Rating</td>
+        </tr>
+        <tr *ngFor="let product of (products| apps:filterProducts);let pval = index">
+          <td>{{pval}}</td>
+          <td>
+            <img [src]="product.Url" alt="" *ngIf="showhideImg" height='50' width='50'>
+            <!-- []square bracket is used for property binding -->
+          </td>
+          <td><a [routerLink]="['/products/details',product.ProductName]">{{product.ProductName}}</a></td>
+          <td>{{product.ReleaseDate}}</td>
+          <td>{{product.Price }}</td>
+          <td>
+            <app-rating [rating]="product.Rating" (ratingEvent)='recievedatafromChild($event)'></app-rating>
+          </td>
+
+        </tr>
+      </table> </span>
+  </app-panel>
+  <button class="btn btn-primary" id="btn">Click</button>
+</div>

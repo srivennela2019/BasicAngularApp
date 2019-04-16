@@ -1,0 +1,24 @@
+<div class="container">
+  <app-panel>
+    <span panel-head><h1>{{product}}</h1></span>
+    <span panel-body><table class="table">
+          <!--ng-if removes the entire elemnet fron the dom -->
+          <tr *ngFor="let products of productslist">
+            <div *ngIf="products.ProductName == product">
+            
+                <img [src]="products.Url" alt="" height='200' width='200'>
+                <!-- []square bracket is used for property binding -->
+            <h3>Release date:{{products.ReleaseDate}}</h3>
+            <h3>Price :${{products.Price }}</h3>
+            <h3>
+                <app-rating [rating]="products.Rating"></app-rating>
+            </h3>
+          </div>
+          
+          </tr>
+        </table>
+       
+      </span>
+  </app-panel>
+  <button class="btn btn-danger" (click)="backtolist()">Back to list</button>
+</div>
